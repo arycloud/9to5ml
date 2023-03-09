@@ -86,6 +86,8 @@ WSGI_APPLICATION = 'Blog9to5.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+
 if os.getenv("DJANGO_DATABASE_URL", None) is None:
     raise Exception("DJANGO_DATABASE_URL environment variable not defined")
 
