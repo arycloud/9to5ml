@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+{% block title %}My Blog{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row mt-5">
+    {% for post in posts %}
+    <div class="preview-card">
+      <div class="preview-card__wrp">
+        <div class="preview-card__item">
+          <div class="preview-card__img">
+            <img src="{{post.photo.url}}" alt="">
+          </div>
+          <div class="preview-card__content">
+            <span class="preview-card__code">{{ post.publish }}</span>
+            <div class="preview-card__title">{{ post.title }}</div>
+            <div class="preview-card__text">{{ post.body|truncatewords:15|linebreaks }} </div>
+            <a href="{% url 'blog:post_detail' post.id %}" class="preview-card__button">READ Now</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+{% endblock %}

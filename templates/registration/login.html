@@ -1,0 +1,108 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main_box">
+    
+  {% comment %} <form method="post" action="{% url 'register' %}"> {% endcomment %}
+      <div class="backbox">
+        <div class="loginMsg">
+          <div class="textcontent">
+            <p class="title">Don't have an account?</p>
+            <p>Sign up to save all your graph.</p>
+            <button id="switch1">Sign Up</button>
+          </div>
+        </div>
+        <div class="signupMsg visibility">
+          <div class="textcontent">
+            <p class="title">Have an account?</p>
+            <p>Log in to see all your collection.</p>
+            <button id="switch2">LOG IN</button>
+          </div>
+        </div>
+      </div>
+  {% comment %} </form> {% endcomment %}
+      <!-- backbox -->
+
+
+  
+        <div class="frontbox">
+          <div class="login">
+            <h2>LOG IN</h2>
+            <div class="inputbox">
+              <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" id="id_username">
+                <input type="password" name="password" placeholder="PASSWORD" id="id_password">
+            </div>
+            <p>FORGET PASSWORD?</p>
+            {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+          <p style="font-size: 13px;">
+            {{ error|escape }}
+          </p>
+          {% endfor %} {% endif %}
+            <button type="submit">LOG IN</button>
+          </form>
+          </div>
+
+          <div class="signup hide">
+            <h2>SIGN UP</h2>
+            <div class="inputbox">
+              <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" id="id_username">
+                <input type="Password" name="password1" placeholder="  Password">
+                <input type="password" name="password2" placeholder="  Confirm password">
+              </div>
+              <button type="submit" >SIGN UP</button>
+              {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+              <p style="font-size: 13px;">
+                {{ error|escape }}
+              </p>
+              {% endfor %} {% endif %}
+            </form>
+          </div>
+
+        </div>
+      <!-- frontbox -->
+  </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script>
+    var $loginMsg = $('.loginMsg'),
+    $login = $('.login'),
+    $signupMsg = $('.signupMsg'),
+    $signup = $('.signup'),
+    $frontbox = $('.frontbox');
+
+    $('#switch1').on('click', function() {
+      console.log('signup is clicked!')
+      $loginMsg.toggleClass("visibility");
+      $frontbox.addClass("moving");
+      $signupMsg.toggleClass("visibility");
+
+      $signup.toggleClass('hide');
+      $login.toggleClass('hide');
+    })
+
+    $('#switch2').on('click', function() {
+      console.log('login is clicked!')
+      $loginMsg.toggleClass("visibility");
+      $frontbox.removeClass("moving");
+      $signupMsg.toggleClass("visibility");
+
+      $signup.toggleClass('hide');
+      $login.toggleClass('hide');
+    })
+
+    setTimeout(function(){
+      $('#switch1').click()
+    },1000)
+
+    setTimeout(function(){
+      $('#switch2').click()
+    },3000)
+  </script>
+
+{% endblock %}
